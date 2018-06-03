@@ -19,8 +19,10 @@ if [ "$(ls /tmp/artifacts/ 2>/dev/null)" ]; then
   mv /tmp/artifacts/. ./
 fi
 
-echo "---> Installing application source..."
-cp -Rf /tmp/src/. ./
-
 echo "---> Building application from source..."
-# TODO: Add build steps for your application, eg npm install, bundle install, pip install, etc.
+SRCDIR=`pwd`
+cd /tmp/src
+antora site.yml
+
+echo "---> Installing generated site..."
+cp -Rf build/site/. $SRCDIR
